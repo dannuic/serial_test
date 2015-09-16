@@ -37,7 +37,7 @@ Type _getTypeKeyInt()
     uchar size = _getSize<T>();
     switch (size)
     {
-    case 8: if (std::is_signed<T>::value) return INT8; else return UINT8;
+    case 8:  if (std::is_signed<T>::value) return INT8; else return UINT8;
     case 16: if (std::is_signed<T>::value) return INT16; else return UINT16;
     case 32: if (std::is_signed<T>::value) return INT32; else return UINT32;
     case 64: if (std::is_signed<T>::value) return INT64; else return UINT64;
@@ -53,10 +53,10 @@ Type _getTypeKeyFloat()
     uchar size = _getSize<T>();
     switch (size)
     {
-    case 32: return FLT32;
-    case 64: return FLT64;
+    case 32:  return FLT32;
+    case 64:  return FLT64;
     case 128: return FLT128;
-    default: return NONE;
+    default:  return NONE;
     };
 
     return NONE;
@@ -109,8 +109,8 @@ ByteVec _floatToInt(const T input)
 {
     union
     {
-        T in;
-        O out;
+        T   in;
+        O   out;
     }   data;
 
     data.in = input;
@@ -123,7 +123,7 @@ ByteVec _floatToInt128(const T& input)
 {
     union
     {
-        T in;
+        T       in;
         int64_t out[2];
     }   data;
 
@@ -146,10 +146,10 @@ ByteVec _fillArrayFloat(const T input)
     uchar size = _getSize<T>();
     switch (size)
     {
-    case 32: return _floatToInt<T, int32_t>(input);
-    case 64: return _floatToInt<T, int64_t>(input);
+    case 32:  return _floatToInt<T, int32_t>(input);
+    case 64:  return _floatToInt<T, int64_t>(input);
     case 128: return _floatToInt128<T>(input);
-    default: break;
+    default:  break;
     };
 
     return ByteVec(0);
@@ -220,8 +220,8 @@ O _intToFloat(const ByteVec& input)
 
     union
     {
-        T in;
-        O out;
+        T   in;
+        O   out;
     }   data;
 
     data.in = intVal;
@@ -242,7 +242,7 @@ O _intToFloat128(const ByteVec& input)
     union
     {
         int64_t in[2];
-        O out;
+        O       out;
     }   data;
 
 #if __BYTE_ORDER == __LITTLE_ENDIAN
@@ -265,10 +265,10 @@ T _readArrayFloat(const ByteVec& input)
 
     switch (size)
     {
-    case 32: return _intToFloat<int32_t, T>(input);
-    case 64: return _intToFloat<int64_t, T>(input);
+    case 32:  return _intToFloat<int32_t, T>(input);
+    case 64:  return _intToFloat<int64_t, T>(input);
     case 128: return _intToFloat128<T>(input);
-    default: break;
+    default:  break;
     };
 
     return static_cast<T>(0);
@@ -463,7 +463,7 @@ struct OutStreamHelper<Container<Key, T, C, A> >
     }
 };
 
-// generic container
+// generic container (might not be useful)
 template <template <typename, typename...> class Container,
           typename T, typename... Add>
 struct OutStreamHelper<Container<T, Add...> >
